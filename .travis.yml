@@ -39,4 +39,4 @@ script:
   - cat ~/phantomjs.log
 
   # Print log ~/selenium.log
-  # - cat ~/selenium.log
+  - cat ~/selenium.log
