@@ -32,6 +32,8 @@ script:
   - phantomjs --webdriver=4444 > ~/phantomjs.log 2>&1 &
 
   # Run behat tests.
+  - ls -alh
+  - ls -alh ..
   - cd ../behat
   - ./bin/behat --tags=~@wip
 
