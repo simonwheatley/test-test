@@ -23,22 +23,27 @@ script:
   - sh -e /etc/init.d/xvfb start
   - sleep 3 # give xvfb some time to start
 
+  - composer update --no-interaction --prefer-dist
+  - ls -alh
+  - ls -alh bin
+  - ls -alh vendor
+
   # Run selenium.
-  - wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-  - java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
-  - sleep 5
+#  - wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
+#  - java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
+#  - sleep 5
 
   # Run phantomJs.
-  - phantomjs --webdriver=4444 > ~/phantomjs.log 2>&1 &
+#  - phantomjs --webdriver=4444 > ~/phantomjs.log 2>&1 &
 
   # Run behat tests.
-  - ls -alh
-  - ls -alh ..
-  - cd ../behat
-  - ./bin/behat --tags=~@wip
+#  - ls -alh
+#  - ls -alh ..
+#  - cd ../behat
+#  - ./bin/behat --tags=~@wip
 
   # Print log ~/phantomjs.log
-  - cat ~/phantomjs.log
+#  - cat ~/phantomjs.log
 
   # Print log ~/selenium.log
-  - cat ~/selenium.log
+#  - cat ~/selenium.log
