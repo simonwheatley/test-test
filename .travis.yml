@@ -11,8 +11,8 @@ before_install:
   - composer self-update
 
 install:
-  # install php packages required for running a web server from drush on php 5.3
   - sudo apt-get install -y --force-yes php5-cgi php5-mysql
+#  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
 
 before_script:
   - echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -24,13 +24,13 @@ script:
   - sleep 3 # give xvfb some time to start
 
   - composer update --no-interaction --prefer-dist
+  - sudo /etc/init.d/apache2 restart
   - pwd
   - ls -alh ..
-  - ls -alh
   - ls -alh bin
   - ls -alh vendor
-  - ls -alh wp
-  - ./bin/wp --help
+  - ./bin/wp core download
+  - ls -alh
 
 
 
