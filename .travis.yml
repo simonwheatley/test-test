@@ -26,7 +26,8 @@ script:
 #  - composer update --no-interaction --prefer-dist
   - sudo /etc/init.d/apache2 restart
   - cat /etc/apache2/sites-enabled/000-default
-  - cat /etc/apache2/apache2.conf
+#  - cat /etc/apache2/apache2.conf
+  - cat /etc/apache2/conf.d/*.conf
   - pwd
   - ls -alh ..
   - ls -alh bin
