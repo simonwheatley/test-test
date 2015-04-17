@@ -12,8 +12,7 @@ before_install:
 
 install:
   - sudo apt-get install -y --force-yes php5-cgi php5-mysql
-#  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
-
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
 
 before_script:
   - echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -33,7 +32,8 @@ script:
   - ./bin/wp core download
   - ls -alh
 
-
+  - curl -s localhost
+  - ./bin/wp eval "echo ABSPATH . PHP_EOL;"
 
   # Run selenium.
 #  - wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
