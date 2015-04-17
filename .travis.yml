@@ -24,9 +24,15 @@ script:
   - sleep 3 # give xvfb some time to start
 
   - composer update --no-interaction --prefer-dist
+  - pwd
+  - ls -alh ..
   - ls -alh
   - ls -alh bin
   - ls -alh vendor
+  - ls -alh wp
+  - ./bin/wp --help
+
+
 
   # Run selenium.
 #  - wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
