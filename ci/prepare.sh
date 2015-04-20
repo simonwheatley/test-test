@@ -2,21 +2,19 @@
 
 # called by Travis CI
 
+# Exit if anything fails AND echo each command before executing
+# http://www.peterbe.com/plog/set-ex
 set -ex
 
-composer install --no-interaction --prefer-source
+echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
-# the Behat test suite will pick up the executable found in $WP_CLI_BIN_DIR
-mkdir -p $WP_CLI_BIN_DIR
-php -dphar.readonly=0 utils/make-phar.php wp-cli.phar --quiet
-mv wp-cli.phar $WP_CLI_BIN_DIR/wp
-chmod +x $WP_CLI_BIN_DIR/wp
+# Set up the Apache virtualhost
+echo $TRAVIS_BUILD_DIR
+mkdir -p $TRAVIS_BUILD_DIR/wordpress-site/
+cp wordpress.conf /etc/apache2/sites-available/
+a2ensite apache-ci.conf
+sudo service apache2 restart
 
-# Install CodeSniffer things
-./ci/prepare-codesniffer.sh
-
-./bin/wp core download --version=$WP_VERSION --path='/tmp/wp-cli-test core-download-cache/'
-./bin/wp core version --path='/tmp/wp-cli-test core-download-cache/'
-
-mysql -e 'CREATE DATABASE wp_cli_test;' -uroot
-mysql -e 'GRANT ALL PRIVILEGES ON wp_cli_test.* TO "wp_cli_test"@"localhost" IDENTIFIED BY "password1"' -uroot
+# Set up the database
+mysql -e 'CREATE DATABASE wp_test;' -uroot
+mysql -e 'GRANT ALL PRIVILEGES ON wp_test.* TO "wp_cli_test"@"localhost" IDENTIFIED BY "password1"' -uroot
