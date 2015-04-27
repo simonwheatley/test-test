@@ -33,10 +33,10 @@ mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIF
 
 # install WordPress
 cd $WORDPRESS_SITE_DIR
-./bin/wp core download --version=$WP_VERSION
+${TRAVIS_BUILD_DIR}/bin/wp core download --version=$WP_VERSION
 # @TODO Set WP_DEBUG and test for notices, etc
-./bin/wp core config --dbname=wordpress --dbuser=wordpress --dbpass=password
-./bin/wp core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
+${TRAVIS_BUILD_DIR}/bin/wp core config --dbname=wordpress --dbuser=wordpress --dbpass=password
+${TRAVIS_BUILD_DIR}/bin/wp core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
