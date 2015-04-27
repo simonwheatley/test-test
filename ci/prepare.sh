@@ -10,7 +10,7 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 
 # Set up the database
 sudo service mysql restart
-mysql -e 'CREATE DATABASE myapp_test;' -uroot
+mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
 mysql -e 'SHOW TABLES;' wordpress --user=wordpress --password=password
 
