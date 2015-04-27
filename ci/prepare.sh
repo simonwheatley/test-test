@@ -36,7 +36,8 @@ mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIF
 # install WordPress
 cd $WORDPRESS_SITE_DIR
 WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
-$WP_CLI core download --version=$WP_VERSION
+# @TODO Figure out how to deal with installing "trunk", SVN checkout?
+$WP_CLI core download
 # @TODO Set WP_DEBUG and test for notices, etc
 $WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password
 $WP_CLI core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
