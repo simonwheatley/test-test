@@ -10,6 +10,8 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
+composer update --no-interaction --prefer-dist
+
 # set up WordPress site directory
 WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
 echo "Site dir $WORDPRESS_SITE_DIR"
@@ -33,10 +35,11 @@ mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIF
 
 # install WordPress
 cd $WORDPRESS_SITE_DIR
-${TRAVIS_BUILD_DIR}/bin/wp core download --version=$WP_VERSION
+WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
+$WP_CLI core download --version=$WP_VERSION
 # @TODO Set WP_DEBUG and test for notices, etc
-${TRAVIS_BUILD_DIR}/bin/wp core config --dbname=wordpress --dbuser=wordpress --dbpass=password
-${TRAVIS_BUILD_DIR}/bin/wp core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
+$WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password
+$WP_CLI core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
