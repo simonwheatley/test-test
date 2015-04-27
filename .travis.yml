@@ -8,7 +8,7 @@ env:
 
 addons:
   hosts:
-    - wordpress.dev
+    - local.wordpress.dev
 
 before_install:
   - sudo apt-get update > /dev/null
@@ -31,10 +31,8 @@ script:
 #  - java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
 #  - sleep 5
 
-  # Now check
-  - pwd
-  - ls -alh
-  - curl -s http://wordpress.dev/
+  # Now check we can access the site
+  - curl -s http://local.wordpress.dev/
 
 
   # Run behat tests.
