@@ -25,29 +25,17 @@ script:
 #  - export DISPLAY=:99.0
 #  - sh -e /etc/init.d/xvfb start
 #  - sleep 3 # give xvfb some time to start
-
-#  - composer update --no-interaction --prefer-dist
-#  - sudo /etc/init.d/apache2 restart
-#  - cat /etc/apache2/sites-enabled/000-default
-##  - cat /etc/apache2/apache2.conf
-#  - cat /etc/apache2/conf.d/*.conf
-#  - pwd
-#  - ls -alh ..
-#  - ls -alh bin
-#  - ls -alh vendor
-#  - ./bin/wp core download
-#  - ls -alh
 #
-#  - curl -s localhost
-#  - ./bin/wp eval "echo ABSPATH . PHP_EOL;"
-
-  # Run selenium.
+#  # Run selenium 2.45.
 #  - wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
 #  - java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
 #  - sleep 5
 
-  # Run phantomJs.
-#  - phantomjs --webdriver=4444 > ~/phantomjs.log 2>&1 &
+  # Now check
+  - pwd
+  - ls -alh
+  - curl -s http://wordpress.dev/
+
 
   # Run behat tests.
 #  - ls -alh

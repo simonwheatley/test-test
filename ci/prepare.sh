@@ -10,12 +10,10 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
+# @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
+# https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens
+# http://awestruct.org/auto-deploy-to-github-pages/ and scroll to "gem install travis"
 composer update --no-interaction --prefer-dist
-
-# set up WordPress site directory
-WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
-echo "Site dir $WORDPRESS_SITE_DIR"
-mkdir -p $WORDPRESS_SITE_DIR
 
 # enable php-fpm
 sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
@@ -34,6 +32,9 @@ mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
 
 # install WordPress
+WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
+echo "Site dir $WORDPRESS_SITE_DIR"
+mkdir -p $WORDPRESS_SITE_DIR
 cd $WORDPRESS_SITE_DIR
 WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
 # @TODO Figure out how to deal with installing "trunk", SVN checkout?
@@ -44,7 +45,3 @@ $WP_CLI core install --url=wordpress.dev --title="WordPress Testing" --admin_use
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
-# Now check
-pwd
-ls -alh
-curl -s http://wordpress.dev/
