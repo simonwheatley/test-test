@@ -11,7 +11,7 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
 # set up WordPress site directory
-WORDPRESS_SITE_DIR=$(dirname $TRAVIS_BUILD_DIR)
+WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
 echo "Site dir $WORDPRESS_SITE_DIR"
 mkdir -p $WORDPRESS_SITE_DIR
 
