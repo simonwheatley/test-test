@@ -36,10 +36,8 @@ script:
 
 
   # Run behat tests.
-#  - ls -alh
-#  - ls -alh ..
-#  - cd ../behat
-#  - ./bin/behat --tags=~@wip
+  - echo $WORDPRESS_SITE_DIR
+  - ./bin/behat -c $WORDPRESS_SITE_DIR/wp-content/plugins/test-test/behat.yml
 
   # Print log ~/phantomjs.log
 #  - cat ~/phantomjs.log
