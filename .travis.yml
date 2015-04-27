@@ -32,7 +32,7 @@ script:
 #  - sleep 5
 
   # Now check we can access the site
-  - curl -s http://local.wordpress.dev/
+#  - curl -s http://local.wordpress.dev/
 
 
   # Run behat tests.
