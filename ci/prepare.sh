@@ -13,9 +13,10 @@ sudo service mysql restart
 mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
 
-## Establish a WordPress site dir
-#WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
-#echo "Site dir $WORDPRESS_SITE_DIR"
+# Establish a WordPress site dir
+WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
+WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
+echo "Site dir $WORDPRESS_SITE_DIR"
 
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
