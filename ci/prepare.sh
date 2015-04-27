@@ -49,3 +49,7 @@ $WP_CLI core install --url=local.wordpress.dev --title="WordPress Testing" --adm
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
+# Copy the No Mail MU plugin into place
+mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
+cp -pr $TRAVIS_BUILD_DIR/ci/no-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
+
