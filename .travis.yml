@@ -6,13 +6,16 @@ php:
 env:
     - WP_VERSION=master WP_MULTISITE=0
 
+addons:
+  hosts:
+    - wordpress.dev
+
 before_install:
   - sudo apt-get update > /dev/null
   - composer self-update
 
 install:
-  - sudo apt-get install -y --force-yes php5-cgi php5-mysql
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+
 
 before_script:
   - ./ci/prepare.sh
