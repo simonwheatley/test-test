@@ -36,6 +36,8 @@ script:
   # Now check we can access the site
 #  - curl -s http://local.wordpress.dev/
 
+  # Print log ~/selenium.log
+  - cat ~/selenium.log
 
   # Run behat tests.
   - ls -al ${TRAVIS_BUILD_DIR}/vendor/bin/
