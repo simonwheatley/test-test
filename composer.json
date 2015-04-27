@@ -1,14 +1,16 @@
 {
-	"name": "simonwheatley/test-test",
-	"description": "Testing things",
-	"license": "GPL-2.0",
-	"bin": [
-		"bin/wp.bat", "bin/wp"
-	],
-	"require": {
-		"php": ">=5.2.4"
-	},
-	"require-dev": {
-        "wp-cli/wp-cli": "*"
-	}
+  "name": "simonwheatley/test-test",
+  "description": "Testing things",
+  "license": "GPL-2.0",
+  "require": {
+      "php": ">=5.2.4"
+  },
+  "require-dev": {
+    "behat/behat": "2.4.*@stable",
+    "behat/mink": "1.4.*@stable",
+    "behat/mink-extension": "*",
+    "behat/mink-goutte-driver": "*",
+    "behat/mink-selenium2-driver": "*",
+    "wp-cli/wp-cli": "*"
+  }
 }
