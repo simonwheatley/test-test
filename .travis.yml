@@ -37,7 +37,8 @@ script:
 
   # Run behat tests.
   - echo $WORDPRESS_SITE_DIR
-  - ./bin/behat -c $WORDPRESS_SITE_DIR/wp-content/plugins/test-test/behat.yml
+  - ls -al ${TRAVIS_BUILD_DIR}/vendor/bin/
+  - ${TRAVIS_BUILD_DIR}/vendor/bin/behat -c $WORDPRESS_SITE_DIR/wp-content/plugins/test-test/behat.yml
 
   # Print log ~/phantomjs.log
 #  - cat ~/phantomjs.log
