@@ -8,6 +8,11 @@ set -ex
 
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
+# Set up the database
+sudo service mysql restart
+mysql -e 'CREATE DATABASE myapp_test;' -uroot
+mysql -e 'GRANT ALL PRIVILEGES ON myapp_test.* TO "myapp_test"@"localhost" IDENTIFIED BY "password"' -uroot
+
 # Establish a WordPress site dir
 WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
 echo "Site dir $WORDPRESS_SITE_DIR"
@@ -31,10 +36,6 @@ sudo sed -e "s?%WORDPRESS_SITE_DIR%?${WORDPRESS_SITE_DIR}?g" --in-place /etc/apa
 cat /etc/apache2/sites-available/default
 sudo service apache2 restart
 
-# Set up the database
-mysql -e 'CREATE DATABASE myapp_test;'
-mysql -e 'GRANT ALL PRIVILEGES ON myapp_test.* TO "myapp_test"@"localhost" IDENTIFIED BY "password"'
-
 # install WordPress
 mkdir -p $WORDPRESS_SITE_DIR
 cd $WORDPRESS_SITE_DIR
@@ -42,7 +43,7 @@ WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
 # @TODO Figure out how to deal with installing "trunk", SVN checkout?
 $WP_CLI core download
 # @TODO Set WP_DEBUG and test for notices, etc
-$WP_CLI core config --dbname=myapp_test --dbuser=myapp_test --dbpass=password
+$WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password
 $WP_CLI core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
