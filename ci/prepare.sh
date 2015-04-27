@@ -18,6 +18,11 @@ WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
 WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
 echo "Site dir $WORDPRESS_SITE_DIR"
 
+# @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
+# https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens
+# http://awestruct.org/auto-deploy-to-github-pages/ and scroll to "gem install travis"
+composer update --no-interaction --prefer-dist
+
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
 # enable php-fpm
@@ -43,9 +48,4 @@ $WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password
 $WP_CLI core install --url=local.wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
-# @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
-# https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens
-# http://awestruct.org/auto-deploy-to-github-pages/ and scroll to "gem install travis"
-cd ${WORDPRESS_SITE_DIR}/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/
-composer update --no-interaction --prefer-dist
 
