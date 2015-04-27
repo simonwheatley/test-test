@@ -12,7 +12,6 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 sudo service mysql restart
 mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
-mysql -e 'SHOW TABLES;' wordpress --user=wordpress --password=password
 
 # Establish a WordPress site dir
 WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
