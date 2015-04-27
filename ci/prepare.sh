@@ -37,7 +37,8 @@ cd $WORDPRESS_SITE_DIR
 # @TODO Set WP_DEBUG and test for notices, etc
 ./bin/wp core config --dbname=wordpress --dbuser=wordpress --dbpass=password
 ./bin/wp core install --url=wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=password --admin_email=testing@example.invalid
-# @TODO Install the plugin (or theme?)
+cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
+ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
 # Now check
 pwd
