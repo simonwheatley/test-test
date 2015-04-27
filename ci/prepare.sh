@@ -8,6 +8,10 @@ set -ex
 
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
+# Establish a WordPress site dir
+WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
+echo "Site dir $WORDPRESS_SITE_DIR"
+
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
 # @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
@@ -32,8 +36,6 @@ mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
 
 # install WordPress
-WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
-echo "Site dir $WORDPRESS_SITE_DIR"
 mkdir -p $WORDPRESS_SITE_DIR
 cd $WORDPRESS_SITE_DIR
 WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
