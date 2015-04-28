@@ -16,9 +16,9 @@ use WebDriver\Exception\NoAlertOpenError;
 class FeatureContext extends MinkContext {
 
 	/**
-	 * @Then /echo the content/
+	 * @Then /echo debugging information/
 	 */
-	public function echoHTML() {
+	public function echoDebugging() {
 		echo $this->getSession()->getDriver()->getCurrentUrl();
 		echo $this->getSession()->getDriver()->getContent();
 	}

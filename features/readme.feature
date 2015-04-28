@@ -6,6 +6,6 @@ Feature: Accessing WordPress site
   @javascript @insulated
   Scenario: Visiting the homepage
     Given I am on "/readme.html"
-    And I wait for 10 seconds
-    And echo the content
+#    And I wait for 10 seconds
+#    And echo debugging information
     Then I should see "WordPress is a very special project to me"
