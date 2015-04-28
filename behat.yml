@@ -5,7 +5,7 @@ default:
         bootstrap: %behat.paths.features%/bootstrap
     extensions:
         Behat\MinkExtension\Extension:
-            base_url: https://local.wordpress.dev
+            base_url: http://local.wordpress.dev
             files_path: '%behat.paths.features%/files/'
             goutte:
               guzzle_parameters:
