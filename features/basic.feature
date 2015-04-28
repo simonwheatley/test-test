@@ -6,4 +6,5 @@ Feature: Accessing WordPress site
   @javascript @insulated
   Scenario: Visiting the homepage
     Given I am on "/"
+    And I wait for 10 seconds
     Then I should see "Proudly powered by WordPress"

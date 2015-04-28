@@ -16,4 +16,11 @@ use WebDriver\Exception\NoAlertOpenError;
 class FeatureContext extends MinkContext {
 
 
+	/**
+	 * @Then /^I wait for ([\d]*) seconds$/
+	 */
+	public function iWaitForSeconds( $arg1 ) {
+		sleep( intval( $arg1 ) );
+	}
+
 }
