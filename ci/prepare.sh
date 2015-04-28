@@ -18,6 +18,8 @@ WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
 WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
 echo "Site dir $WORDPRESS_SITE_DIR"
 
+# http://docs.travis-ci.com/user/languages/php/#Apache-%2B-PHP
+
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
 # @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
