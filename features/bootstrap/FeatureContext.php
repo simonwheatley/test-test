@@ -19,7 +19,6 @@ class FeatureContext extends MinkContext {
 	 * @Then /echo the content/
 	 */
 	public function echoHTML() {
-		print_r( $this->getSession()->getDriver()->getResponseHeaders() );
 		echo $this->getSession()->getDriver()->getCurrentUrl();
 		echo $this->getSession()->getDriver()->getContent();
 	}
