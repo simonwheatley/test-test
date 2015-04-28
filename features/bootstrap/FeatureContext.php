@@ -15,6 +15,13 @@ use WebDriver\Exception\NoAlertOpenError;
  */
 class FeatureContext extends MinkContext {
 
+	/**
+	 * @Then /echo the content/
+	 */
+	public function echoHTML() {
+		echo $this->getSession()->getDriver()->getContent();
+	}
+
 
 	/**
 	 * @Then /^I wait for ([\d]*) seconds$/
