@@ -11,6 +11,7 @@ addons:
     - local.wordpress.dev
 
 before_install:
+  - sudo apt-get update > /dev/null
   - ./ci/prepare.sh
 
 install:

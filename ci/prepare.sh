@@ -6,7 +6,6 @@
 # http://www.peterbe.com/plog/set-ex
 set -ex
 
-sudo apt-get update > /dev/null
 composer self-update
 
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
