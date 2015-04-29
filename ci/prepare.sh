@@ -6,6 +6,9 @@
 # http://www.peterbe.com/plog/set-ex
 set -ex
 
+sudo apt-get update > /dev/null
+composer self-update
+
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 # Set up the database
@@ -14,9 +17,10 @@ mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
 
 # Establish a WordPress site dir
-WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
-WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
-echo "Site dir $WORDPRESS_SITE_DIR"
+export WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
+export WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
+
+export WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
 
 # http://docs.travis-ci.com/user/languages/php/#Apache-%2B-PHP
 
@@ -43,7 +47,6 @@ sudo service apache2 restart
 # install WordPress
 mkdir -p $WORDPRESS_SITE_DIR
 cd $WORDPRESS_SITE_DIR
-WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
 # @TODO Figure out how to deal with installing "trunk", SVN checkout?
 $WP_CLI core download
 # @TODO Set WP_DEBUG and test for notices, etc

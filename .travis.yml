@@ -11,16 +11,12 @@ addons:
     - local.wordpress.dev
 
 before_install:
-  - sudo apt-get update > /dev/null
-  - composer self-update
-  - WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
-  - WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
+  - ./ci/prepare.sh
 
 install:
 
 
 before_script:
-  - ./ci/prepare.sh
 
 script:
   # Create display.
@@ -47,4 +43,4 @@ script:
 #  - cat ~/phantomjs.log
 
   # Print log ~/selenium.log
-  - cat ~/selenium.log
+#  - cat ~/selenium.log
