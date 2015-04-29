@@ -12,6 +12,9 @@ addons:
 
 before_install:
   - sudo apt-get update > /dev/null
+  - export WORDPRESS_SITE_DIR="$(dirname $TRAVIS_BUILD_DIR)/wordpress/"
+  - export WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
+  - export WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
   - ./ci/prepare.sh
 
 install:
@@ -37,7 +40,6 @@ script:
   - cat ~/selenium.log
 
   # Run behat tests.
-  - ls -al ${TRAVIS_BUILD_DIR}/vendor/bin/
   - ${WORDPRESS_SITE_DIR}/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/vendor/bin/behat -c $WORDPRESS_SITE_DIR/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/behat.yml
 
   # Print log ~/phantomjs.log
