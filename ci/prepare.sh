@@ -54,5 +54,5 @@ ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 
 # Copy the No Mail MU plugin into place
 mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
-cp -pr $TRAVIS_BUILD_DIR/ci/no-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
+cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 
