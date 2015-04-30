@@ -1,6 +1,4 @@
 <?php
 
-phpinfo( INFO_GENERAL );
-phpinfo( INFO_VARIABLES );
-phpinfo( INFO_ENVIRONMENT );
+print_r( $_ENV );
 
