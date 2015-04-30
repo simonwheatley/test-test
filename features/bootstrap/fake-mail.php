@@ -2,7 +2,10 @@
 
 define( 'WORDPRESS_FAKE_MAIL_DIVIDER', '%%===================%%' );
 if ( ! defined( 'WORDPRESS_FAKE_MAIL_DIR' ) ) {
+	var_dump( "Trying to set WORDPRESS_FAKE_MAIL_DIR from ENV" );
 	define( 'WORDPRESS_FAKE_MAIL_DIR', $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
+} else {
+	var_dump( "WORDPRESS_FAKE_MAIL_DIR is already set" );
 }
 
 /**
@@ -54,6 +57,8 @@ function a8c_vip_read_fake_mail( $file ) {
  */
 function a8c_vip_get_fake_mail_for( $email_address ) {
 	$emails = array();
+	var_dump( WORDPRESS_FAKE_MAIL_DIR );
+	var_dump( $email );
 	foreach ( glob( WORDPRESS_FAKE_MAIL_DIR . '*' . $email_address . '*' ) as $email ) {
 		$emails[] = $email;
 	}
