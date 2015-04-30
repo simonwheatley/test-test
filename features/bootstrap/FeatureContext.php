@@ -53,15 +53,19 @@ class FeatureContext extends MinkContext {
 	/**
 	 * @Then /^the latest email to ([^ ]+@[^ ]+) should match "([^"]*)"$/
 	 */
-	public function assertFakeEmailReceipt( $email, $pattern ) {
+	public function assertFakeEmailReceipt( $email_address, $pattern ) {
 		require_once( __DIR__ . '/fake-mail.php' );
 		$regex = $this->fixStepArgument($pattern);
-		$emails = a8c_vip_get_fake_mail_for( $email );
+		var_dump( "Pattern: $pattern" );
+		var_dump( "Checking email to $email_address" );
+		$emails = a8c_vip_get_fake_mail_for( $email_address );
+		var_dump( "Got emails to $email_address:" );
+		var_dump( $emails );
 		$message = a8c_vip_read_fake_mail( array_pop( $emails ) );
 		if ( preg_match("/$regex/", $message['body']) ) {
 			return;
 		}
-		$message = sprintf( 'Did not find an email to %s which matched "%s" – ', $email, $pattern );
+		$message = sprintf( 'Did not find an email to %s which matched "%s" – ', $email_address, $pattern );
 		throw new \Behat\Mink\Exception\ExpectationException($message, $this->getSession());
 	}
 
