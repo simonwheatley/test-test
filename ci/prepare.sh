@@ -32,7 +32,7 @@ sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.ph
 sudo a2enmod rewrite actions fastcgi alias
 echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 # Get the WORDPRESS_FAKE_MAIL_DIR into PHP as an environment variable
-echo "env[WORDPRESS_FAKE_MAIL_DIR] = ${WORDPRESS_FAKE_MAIL_DIR}" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+echo "env[WORDPRESS_FAKE_MAIL_DIR] = ${WORDPRESS_FAKE_MAIL_DIR}" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
 ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 
 # configure apache virtual hosts
