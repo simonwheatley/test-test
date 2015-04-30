@@ -11,8 +11,6 @@
     "behat/mink-extension": "*",
     "behat/mink-goutte-driver": "*",
     "behat/mink-selenium2-driver": "*",
-    "jakub-onderka/php-parallel-lint": "0.*",
-    "jakub-onderka/php-console-highlighter": "0.*",
     "wp-cli/wp-cli": "*"
   }
 }
