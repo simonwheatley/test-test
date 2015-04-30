@@ -11,6 +11,7 @@ composer self-update
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 WORDPRESS_FAKE_MAIL_DIR="$(dirname $TRAVIS_BUILD_DIR)/fake-mail/"
+echo $WORDPRESS_FAKE_MAIL_DIR
 
 # Set up the database
 sudo service mysql restart
@@ -48,6 +49,7 @@ $WP_CLI core download
 $WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password <<PHP
 define( 'WORDPRESS_FAKE_MAIL_DIR', '${WORDPRESS_FAKE_MAIL_DIR}' );
 PHP
+cat "${WORDPRESS_SITE_DIR}/wp-config.php"
 $WP_CLI core install --url=local.wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=initialpassword --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
