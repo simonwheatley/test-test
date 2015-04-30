@@ -16,6 +16,7 @@ before_install:
   - export WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
   - export WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
   - ./ci/prepare.sh
+  - cat "${WORDPRESS_SITE_DIR}/wp-config.php"
 
 install:
 
