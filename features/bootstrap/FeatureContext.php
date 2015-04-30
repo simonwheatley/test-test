@@ -12,6 +12,9 @@ use WebDriver\Exception\NoAlertOpenError;
 
 if ( ! isset( $_ENV['WORDPRESS_FAKE_MAIL_DIR'] ) ) {
 	$_ENV['WORDPRESS_FAKE_MAIL_DIR'] = '/Users/simonwheatley/Vagrants/vvv/www/wordpress-default/mail/';
+	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR manually to: " . $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
+} else {
+	var_dump( "Got WORDPRESS_FAKE_MAIL_DIR from ENV: " . $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
 }
 
 /**
