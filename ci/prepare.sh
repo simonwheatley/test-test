@@ -22,11 +22,6 @@ mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIF
 
 sudo apt-get install apache2 libapache2-mod-fastcgi
 
-# @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
-# https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens
-# http://awestruct.org/auto-deploy-to-github-pages/ and scroll to "gem install travis"
-composer update --no-interaction --prefer-dist
-
 # enable php-fpm
 sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
 sudo a2enmod rewrite actions fastcgi alias
@@ -41,6 +36,11 @@ sudo cp -f $TRAVIS_BUILD_DIR/ci/wordpress-apache.conf /etc/apache2/sites-availab
 sudo sed -e "s?%WORDPRESS_SITE_DIR%?${WORDPRESS_SITE_DIR}?g" --in-place /etc/apache2/sites-available/default
 cat /etc/apache2/sites-available/default
 sudo service apache2 restart
+
+# @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
+# https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens
+# http://awestruct.org/auto-deploy-to-github-pages/ and scroll to "gem install travis"
+composer update --no-interaction --prefer-dist
 
 # install WordPress
 mkdir -p $WORDPRESS_SITE_DIR
