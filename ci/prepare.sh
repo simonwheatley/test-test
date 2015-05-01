@@ -29,8 +29,6 @@ sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.ph
 sudo a2enmod rewrite actions fastcgi alias
 echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
-cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
-cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 ls -alh /home/travis/.phpenv/versions/5.4.37/
 sudo service --status-all
 
@@ -38,7 +36,6 @@ sudo service --status-all
 # @TODO Allow HTTPS connections (need a solution which doesn't mind self-signed certs)
 sudo cp -f $TRAVIS_BUILD_DIR/ci/wordpress-apache.conf /etc/apache2/sites-available/default
 sudo sed -e "s?%WORDPRESS_SITE_DIR%?${WORDPRESS_SITE_DIR}?g" --in-place /etc/apache2/sites-available/default
-cat /etc/apache2/sites-available/default
 sudo service apache2 restart
 
 # @TODO Allow a user to add their GitHub token, encrypted, so they can authenticate with GitHub and bypass API limits applied to Travis as a whole
@@ -55,7 +52,6 @@ $WP_CLI core download
 $WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password <<PHP
 define( 'WORDPRESS_FAKE_MAIL_DIR', '${WORDPRESS_FAKE_MAIL_DIR}' );
 PHP
-cat "${WORDPRESS_SITE_DIR}/wp-config.php"
 $WP_CLI core install --url=local.wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=initialpassword --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
@@ -64,6 +60,3 @@ ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 
-curl -s http://local.wordpress.dev/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/phpinfo.php
-
-exit 10
