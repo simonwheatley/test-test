@@ -1,15 +1,9 @@
 <?php
 
 define( 'WORDPRESS_FAKE_MAIL_DIVIDER', '%%===================%%' );
-var_dump( "Get env: " . getenv( 'WORDPRESS_FAKE_MAIL_DIR' ) );
 if ( ! defined( 'WORDPRESS_FAKE_MAIL_DIR' ) ) {
-	var_dump( "Trying to set WORDPRESS_FAKE_MAIL_DIR from ENV" );
 	define( 'WORDPRESS_FAKE_MAIL_DIR', getenv( 'WORDPRESS_FAKE_MAIL_DIR' ) );
-} else {
-	var_dump( "WORDPRESS_FAKE_MAIL_DIR is already set" );
 }
-var_dump( "GETENV value: " . getenv( 'WORDPRESS_FAKE_MAIL_DIR' ) );
-var_dump( "WORDPRESS_FAKE_MAIL_DIR is " . WORDPRESS_FAKE_MAIL_DIR );
 
 
 /**
