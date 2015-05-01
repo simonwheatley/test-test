@@ -39,7 +39,6 @@ script:
   # Print log ~/selenium.log
 #  - cat ~/selenium.log
 
-  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
   - curl -s http://local.wordpress.dev/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/phpinfo.php
 
   # Run behat tests.
