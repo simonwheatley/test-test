@@ -64,3 +64,6 @@ ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 
+curl -s http://local.wordpress.dev/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/phpinfo.php
+
+exit 10
