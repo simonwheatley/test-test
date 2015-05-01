@@ -33,7 +33,6 @@ cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
 cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 ls -alh /home/travis/.phpenv/versions/5.4.37/
 sudo service --status-all
-sudo service php5-fpm restart
 
 # configure apache virtual hosts
 # @TODO Allow HTTPS connections (need a solution which doesn't mind self-signed certs)
