@@ -31,6 +31,7 @@ echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php
 ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
 cat ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
 cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+ls -alh /home/travis/.phpenv/versions/5.4.37/
 sudo service --status-all
 sudo service php5-fpm restart
 
