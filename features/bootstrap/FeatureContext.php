@@ -10,11 +10,12 @@ use Behat\Gherkin\Node\PyStringNode,
 use Behat\MinkExtension\Context\MinkContext;
 use WebDriver\Exception\NoAlertOpenError;
 
-if ( ! isset( $_ENV['WORDPRESS_FAKE_MAIL_DIR'] ) ) {
-	$_ENV['WORDPRESS_FAKE_MAIL_DIR'] = '/Users/simonwheatley/Vagrants/vvv/www/wordpress-default/mail/';
-	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR manually to: " . $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
+if ( ! getenv('WORDPRESS_FAKE_MAIL_DIR') ) {
+	define( 'WORDPRESS_FAKE_MAIL_DIR', getenv('WORDPRESS_FAKE_MAIL_DIR') );
+	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR via getenv" );
 } else {
-	var_dump( "Got WORDPRESS_FAKE_MAIL_DIR from ENV: " . $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
+	define( 'WORDPRESS_FAKE_MAIL_DIR', '/Users/simonwheatley/Vagrants/vvv/www/wordpress-default/mail/' );
+	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR manually to: " . $_ENV['WORDPRESS_FAKE_MAIL_DIR'] );
 }
 
 /**
