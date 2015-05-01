@@ -23,6 +23,8 @@ install:
 before_script:
 
 script:
+  - curl -s http://local.wordpress.dev/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/phpinfo.php
+
   # Create display.
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
