@@ -10,9 +10,6 @@ composer self-update
 
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
-WORDPRESS_FAKE_MAIL_DIR="$(dirname $TRAVIS_BUILD_DIR)/fake-mail/"
-echo $WORDPRESS_FAKE_MAIL_DIR
-
 # Set up the database
 sudo service mysql restart
 mysql -e 'CREATE DATABASE wordpress;' -uroot
