@@ -12,10 +12,8 @@ use WebDriver\Exception\NoAlertOpenError;
 
 if ( getenv('WORDPRESS_FAKE_MAIL_DIR') ) {
 	define( 'WORDPRESS_FAKE_MAIL_DIR', getenv('WORDPRESS_FAKE_MAIL_DIR') );
-	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR via getenv" );
 } else {
 	define( 'WORDPRESS_FAKE_MAIL_DIR', '/Users/simonwheatley/Vagrants/vvv/www/wordpress-default/mail/' );
-	var_dump( "Set WORDPRESS_FAKE_MAIL_DIR manually to: " . WORDPRESS_FAKE_MAIL_DIR );
 }
 
 /**
@@ -60,11 +58,7 @@ class FeatureContext extends MinkContext {
 	public function assertFakeEmailReceipt( $email_address, $pattern ) {
 		require_once( __DIR__ . '/fake-mail.php' );
 		$regex = $this->fixStepArgument($pattern);
-		var_dump( "Pattern: $pattern" );
-		var_dump( "Checking email to $email_address" );
 		$emails = a8c_vip_get_fake_mail_for( $email_address );
-		var_dump( "Got emails to $email_address:" );
-		var_dump( $emails );
 		$message = a8c_vip_read_fake_mail( array_pop( $emails ) );
 		if ( preg_match("/$regex/", $message['body']) ) {
 			return;
