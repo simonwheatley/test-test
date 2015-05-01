@@ -26,6 +26,7 @@ before_script:
 
 script:
   - curl -s http://local.wordpress.dev/wp-content/plugins/${WORDPRESS_TEST_SUBJECT}/phpinfo.php
+  - ls -alh /home/travis/build/simonwheatley/fake-mail/
 
   # Create display.
   - export DISPLAY=:99.0
