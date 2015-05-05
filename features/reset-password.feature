@@ -26,3 +26,9 @@ Feature: Resetting a password
     And I press "Log In"
     Then I should see "Dashboard"
     And the request URI should match "wp-admin"
+
+  @javascript @insulated
+  Scenario: The password reset actually worked
+    Given I am logged in to WordPress as "admin" with the password "newpassword" and I am on "/wp-admin/"
+    Then I should see "Dashboard"
+    And I should see "At a Glance"
