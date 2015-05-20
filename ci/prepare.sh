@@ -6,6 +6,16 @@
 # http://www.peterbe.com/plog/set-ex
 set -ex
 
+# Wait for a specific port to respond to connections.
+wait_for_port() {
+    local PORT=$1
+    local NAP_LENGTH=2
+    while echo | telnet localhost $PORT 2>&1 | grep -qe 'Connection refused'; do
+        echo "Connection refused on port $PORT. Waiting $NAP_LENGTH seconds..."
+        sleep $NAP_LENGTH
+    done
+}
+
 composer self-update
 
 echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
@@ -57,3 +67,16 @@ ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 
+# Create display.
+export DISPLAY=:99.0
+sh -e /etc/init.d/xvfb start
+
+# Run selenium 2.45.
+wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
+java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
+
+# Wait for Selenium, if necessary
+wait_for_port 4444
+
+# Wait for Apache, if necessary
+wait_for_port 80
