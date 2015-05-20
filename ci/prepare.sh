@@ -6,10 +6,12 @@
 # http://www.peterbe.com/plog/set-ex
 set -ex
 
+# Used when waiting for stuff
+NAP_LENGTH=1
+
 # Wait for a specific port to respond to connections.
 wait_for_port() {
     local PORT=$1
-    local NAP_LENGTH=2
     while echo | telnet localhost $PORT 2>&1 | grep -qe 'Connection refused'; do
         echo "Connection refused on port $PORT. Waiting $NAP_LENGTH seconds..."
         sleep $NAP_LENGTH
@@ -71,12 +73,23 @@ cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
 
+# Wait for Xvfb to initialize (i.e. xdpyinfo returns 0)
+XDPYINFO_EXIT_CODE=1
+while [ $XDPYINFO_EXIT_CODE -ne 0 ] ; do
+        xdpyinfo -display :99.0 &> /dev/null
+        XDPYINFO_EXIT_CODE=$?
+        echo "Waiting on xvfb, xdpyinfo just returned $XDPYINFO_EXIT_CODE"
+        sleep $NAP_LENGTH
+done
+
+exit 100
+
 # Run selenium 2.45.
 wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
-java -jar selenium-server-standalone-2.45.0.jar -p 4444 > ~/selenium.log 2>&1 &
+java -jar selenium-server-standalone-2.45.0.jar -p $SELENIUM_PORT > ~/selenium.log 2>&1 &
 
 # Wait for Selenium, if necessary
-wait_for_port 4444
+wait_for_port $SELENIUM_PORT
 
 # Wait for Apache, if necessary
 wait_for_port 80
