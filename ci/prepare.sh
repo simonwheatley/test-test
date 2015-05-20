@@ -80,3 +80,4 @@ wait_for_port 4444
 
 # Wait for Apache, if necessary
 wait_for_port 80
+
