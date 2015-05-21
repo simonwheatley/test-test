@@ -86,8 +86,6 @@ done
 # Resume exiting the whole script if one command fails
 set -e
 
-exit 100
-
 # Run selenium 2.45.
 wget http://selenium-release.storage.googleapis.com/2.45/selenium-server-standalone-2.45.0.jar
 java -jar selenium-server-standalone-2.45.0.jar -p $SELENIUM_PORT > ~/selenium.log 2>&1 &
