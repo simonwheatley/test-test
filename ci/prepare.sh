@@ -75,12 +75,16 @@ sh -e /etc/init.d/xvfb start
 
 # Wait for Xvfb to initialize (i.e. xdpyinfo returns 0)
 XDPYINFO_EXIT_CODE=1
+# Temporarily stop exiting the whole script if one command fails
+set +e
 while [ $XDPYINFO_EXIT_CODE -ne 0 ] ; do
         xdpyinfo -display :99.0 &> /dev/null
         XDPYINFO_EXIT_CODE=$?
         echo "Waiting on xvfb, xdpyinfo just returned $XDPYINFO_EXIT_CODE"
         sleep $NAP_LENGTH
 done
+# Resume exiting the whole script if one command fails
+set -e
 
 exit 100
 
