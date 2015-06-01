@@ -18,7 +18,6 @@ before_install:
   - export WORDPRESS_TEST_SUBJECT=$(basename $TRAVIS_BUILD_DIR)
   - export WP_CLI="${TRAVIS_BUILD_DIR}/vendor/bin/wp"
   - export WORDPRESS_FAKE_MAIL_DIR="$(dirname $TRAVIS_BUILD_DIR)/fake-mail/"
-  - export SELENIUM_PORT=4444
   - ./ci/prepare.sh
 
 install:
