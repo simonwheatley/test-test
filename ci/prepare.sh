@@ -58,9 +58,9 @@ cd $WORDPRESS_SITE_DIR
 # @TODO Figure out how to deal with installing "trunk", SVN checkout?
 $WP_CLI core download
 # @TODO Set WP_DEBUG and test for notices, etc
-$WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password <<PHP
+$WP_CLI core config --dbname=wordpress --dbuser=wordpress --dbpass=password --extra-php <<EOT
 define( 'WORDPRESS_FAKE_MAIL_DIR', '${WORDPRESS_FAKE_MAIL_DIR}' );
-PHP
+EOT
 $WP_CLI core install --url=local.wordpress.dev --title="WordPress Testing" --admin_user=admin --admin_password=initialpassword --admin_email=testing@example.invalid
 cp -pr $TRAVIS_BUILD_DIR $WORDPRESS_SITE_DIR/wp-content/plugins/
 ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
