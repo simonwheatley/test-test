@@ -8,6 +8,7 @@ set -ex
 
 # Used when waiting for stuff
 NAP_LENGTH=1
+SELENIUM_PORT=4444
 
 # Wait for a specific port to respond to connections.
 wait_for_port() {
@@ -24,7 +25,7 @@ echo 'date.timezone = "Europe/London"' >> ~/.phpenv/versions/$(phpenv version-na
 
 mkdir -p $WORDPRESS_FAKE_MAIL_DIR
 
-# Set up the database
+# Set up the database for WordPress
 sudo service mysql restart
 mysql -e 'CREATE DATABASE wordpress;' -uroot
 mysql -e 'GRANT ALL PRIVILEGES ON wordpress.* TO "wordpress"@"localhost" IDENTIFIED BY "password"' -uroot
@@ -69,11 +70,11 @@ ls -al $WORDPRESS_SITE_DIR/wp-content/plugins/
 mkdir -p $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 cp -pr $TRAVIS_BUILD_DIR/features/bootstrap/fake-mail.php $WORDPRESS_SITE_DIR/wp-content/mu-plugins/
 
-# Create display.
+# Create virtual display
 export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
 
-# Wait for Xvfb to initialize (i.e. xdpyinfo returns 0)
+# Wait for virtual display to initialize (i.e. xdpyinfo returns 0)
 XDPYINFO_EXIT_CODE=1
 # Temporarily stop exiting the whole script if one command fails
 set +e
